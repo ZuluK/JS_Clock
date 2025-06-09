@@ -1,38 +1,36 @@
-//function to add a zero if the number is less than 10
-function whatTime(i){
-  //check if number is less than 10
-  if(i < 10){
-    //adds zero in front of number
-    i = "0" + i
-  }
-  //returns the new value
-  return i;
+// Define an array of clock objects, each with an element ID and a timezone
+const clocks = [
+  { id: 'clock-ny', city: 'New York', timeZone: 'America/New_York' },
+  { id: 'clock-lon', city: 'London', timeZone: 'Europe/London' },
+  { id: 'clock-tokyo', city: 'Tokyo', timeZone: 'Asia/Tokyo' },
+  { id: 'clock-ca', city: 'California', timeZone: 'America/Los_Angeles' },
+  { id: 'clock-ph', city: 'Philippines', timeZone: 'Asia/Manila' },
+  { id: 'clock-th', city: 'Thailand', timeZone: 'Asia/Bangkok' }
+];
+
+// Function to update all clocks on the page
+function updateClocks() {
+  // Loop through each clock object in the array
+  clocks.forEach(clock => {
+    // Get the current date and time
+    const now = new Date();
+    // Set formatting options for the time string, including the timezone
+    const options = {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false, // Use 24-hour format
+      timeZone: clock.timeZone // Set the specific timezone
+    };
+    // Format the current time as a string for the given timezone
+    const timeString = now.toLocaleTimeString('en-US', options);
+    // Update the corresponding HTML element with the formatted time
+    const el = document.getElementById(clock.id);
+    if (el) el.textContent = timeString;
+  });
 }
 
-//When the page is loaded
-  function startTime() {
-//stores current time
-  var timeNow = new Date();
-//stores current hour, minute and second
-  var hour = timeNow.getHours();
-  var minute = timeNow.getMinutes();
-  var second = timeNow.getSeconds();
-//Changes to standard time from military time
-  if (hour > 12){
-//removes 12 from hours
-    hour = hour - 12;
-  }
-
-//upadates variable minute and second using whatTime function
-  minute = whatTime(minute);
-  hour = whatTime(hour);
-//selct element with id of time and changes element to current time
-  document.getElementById('time').textContent = hour + ":" + minute + ":" + second;
-
-//calls the function every second
-    setTimeout (function (){
-      startTime()
-    }, 1000)
-}
-//add event listener to start function
-document.getElementById('time').addEventListener('onload',startTime(), false);
+// Call updateClocks every second to keep the clocks current
+setInterval(updateClocks, 1000);
+// Initial call to display the clocks immediately on page load
+updateClocks();

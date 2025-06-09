@@ -1,0 +1,125 @@
+// Set up a modern, futuristic animated background and center content
+body {
+    // Futuristic animated gradient using CSS gradients and animation
+    background: linear-gradient(120deg, #0f2027, #2c5364, #00ffe7, #232526, #1a2980, #26d0ce);
+    background-size: 400% 400%;
+    animation: gradientMove 16s ease infinite;
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Animate the gradient for a dynamic effect
+  @keyframes gradientMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+  
+  // Container for all clock cards, uses flex for layout
+  .clocks-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap; // Allows wrapping on smaller screens
+    justify-content: center;
+  }
+  
+  // Individual clock card styling
+  .clock-card {
+    background: rgba(34, 40, 49, 0.95); // Semi-transparent dark background
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); // Soft glow
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 180px;
+    transition: transform 0.3s;
+  }
+  
+  // Add a hover effect for interactivity
+  .clock-card:hover {
+    transform: scale(1.05) rotate(-2deg);
+  }
+  /* Magnify the clock on hover */
+  .clock-card:hover .clock {
+    transform: scale(1.25);
+    transition: transform 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+    z-index: 2;
+  }
+  
+  // City label styling
+  .city {
+    color: #00ffe7;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 10px #00ffe7;
+  }
+  
+  // Clock time styling with animated glow
+  .clock {
+    color: #fff;
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7;
+    transition: color 0.3s, text-shadow 0.3s, transform 0.3s cubic-bezier(0.4, 2, 0.6, 1);
+    animation: pulse 1s infinite alternate; // Glowing animation
+  }
+  
+  // Keyframes for the glowing pulse animation
+  @keyframes pulse {
+    from {
+      color: #00ffe7;
+      text-shadow: 0 0 20px #00ffe7, 0 0 40px #00ffe7;
+    }
+    to {
+      color: #fff;
+      text-shadow: 0 0 10px #00ffe7, 0 0 20px #00ffe7;
+    }
+  }
+  
+  // Responsive design: stack cards vertically and adjust padding/font on small screens
+  @media (max-width: 600px) {
+    .clocks-container {
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: center;
+    }
+    .clock-card {
+      min-width: 0;
+      width: 90vw;
+      padding: 1.2rem 0.5rem;
+    }
+    .clock {
+      font-size: 2rem;
+    }
+    .city {
+      font-size: 1rem;
+    }
+  }
+  
+  // Optional: Support for system dark mode (already dark, but allows for easy light mode switch)
+  @media (prefers-color-scheme: light) {
+    body {
+      background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+      background-size: cover;
+      animation: none;
+    }
+    .clock-card {
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+    }
+    .city {
+      color: #0077ff;
+      text-shadow: 0 0 10px #0077ff;
+    }
+    .clock {
+      color: #222;
+      text-shadow: 0 0 10px #0077ff, 0 0 20px #0077ff;
+    }
+  }
